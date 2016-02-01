@@ -1,4 +1,3 @@
-
 # Ces variables servent à préciser le compilateur que l’on veut utiliser
 # ainsi que les paramètres de compilation
 CC=gcc
@@ -6,8 +5,10 @@ LD=gcc
 CFLAGS=-Wall -W -Werror
 LDFLAGS=
 
+
 # Le nom de l’exécutable à fabriquer
 EXE=pawnee
+
 
 # Les variables HEADERS, CFILES et OBJS vont contenir respectivement
 # la listes des fichiers .h, .c et le nom des fichiers .o à fabriquer
@@ -15,11 +16,10 @@ EXE=pawnee
 # de construire automatiquement une liste de fichiers
 HEADERS=$(wildcard *.h)
 CFILES=$(wildcard *.c)
-
 # Cette construction de variable veut dire: remplacer la chaine ".c" par
 # ".o" dans la variable CFILES
 # Ceci nous permet de construire la liste des fichiers .o à fabriquer
-OBJS=$(CFILES :.c =.o)
+OBJS=$(CFILES:.c=.o)
 
 # Même utilisation que précédemment. On précise les règles qui
 # ne fabrique pas de fichier du nom de leur cible
@@ -48,11 +48,11 @@ makefile.dep: $(CFILES) $(HEADERS)
 	$(CC) -MM $(CFILES) > $@
 
 # Cette règle efface le fichier de dépendances et les fichiers .o
-clean :
+clean:
 	$(RM) $(OBJS) makefile.dep
 
 # Cette règle effectue la précédente et efface en plus l’exécutable
-mrproper : clean
+mrproper: clean
 	$(RM) $(EXE)
 
 # On inclue le fichier de dépendance qui va contenir les règles
