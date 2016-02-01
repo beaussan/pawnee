@@ -1,0 +1,8 @@
+Serveur web acceptant :
+- des connexions en TCP sur IPv4 et sur IPv6;
+- de servir les requêtes GET du protocole HTTP;
+- de servir plusieurs clients simultanément;
+- de servir du contenu statique; 
+- de recevoir des commandes de configuration d'un autre processus via des outils de communications entre processus offerts par un noyau UNIX.
+
+
