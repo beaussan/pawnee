@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <arpa/inet.h>
 #include <string.h>
+#include <sys/wait.h>
 
 /* Fonction pour créer le serveur */
 int creer_serveur(int port)
@@ -70,4 +71,6 @@ void initialiser_signaux(void)
    {
       perror("siignal");
    }
+
+
 }
