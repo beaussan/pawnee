@@ -4,13 +4,19 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-
+/* Fonction pour créer le serveur */
 int creer_serveur(int port)
 {
    int                socket_serveur;
    struct sockaddr_in addr;
 
+/* descripteur socket du côté serveur */
    socket_serveur = socket(AF_INET, SOCK_STREAM, 0);
+	/* Domaine : 	AF_INET 	= IPv4 */
+	/* Type : 	SOCK_STREAM 	= TCP */
+	/* Protocol :	0		= TCP est le seul protocole, donc 0 */
+
+/* Test erreur */
    if (socket_serveur == -1)
    {
       perror("socket_serveur");
