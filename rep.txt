@@ -1,0 +1,12 @@
+Question 1:
+    Lorsque l'on quitte & relance le serveur, une erreur indiquant que le port est déjà utilisée s'affiche.
+
+Question 2:
+    En effectuant cette commande, le client ne reçoit pas de message, car la connexion est fermée tout de suite
+
+Question 3:
+    En lancant Telnet, la connexion est refusée au serveur, car c'est de l'IPV6, et on ne gère pas
+
+
+Question 4:
+    Lorsque l'on lance 2 clients en même temps, un seul reçoit le message, et les deux restent ouverts, car le serveur ne différencie pas les deux clients, car il n'y a pas de fork 
