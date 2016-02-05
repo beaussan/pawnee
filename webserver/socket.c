@@ -38,6 +38,7 @@ int creer_serveur(int port)
       return -1;
    }
 
+/* On demande à notre socket d'écouter continuellement et d'accepter 10 connexions dans la file d'attente de co */
    if (listen(socket_serveur, 10) == -1)
    {
       perror("listen socket_serveur");
