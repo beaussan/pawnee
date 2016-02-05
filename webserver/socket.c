@@ -12,9 +12,9 @@ int creer_serveur(int port)
 
 /* descripteur socket du côté serveur */
    socket_serveur = socket(AF_INET, SOCK_STREAM, 0);
-	/* Domaine : 	AF_INET 	= IPv4 */
-	/* Type : 	SOCK_STREAM 	= TCP */
-	/* Protocol :	0		= TCP est le seul protocole, donc 0 */
+   /* Domaine :   AF_INET  = IPv4 */
+   /* Type :   SOCK_STREAM    = TCP */
+   /* Protocol :  0     = TCP est le seul protocole, donc 0 */
 
 /* Test erreur */
    if (socket_serveur == -1)
@@ -28,7 +28,8 @@ int creer_serveur(int port)
    addr.sin_addr.s_addr = INADDR_ANY;
 
    int optval = 1;
-   if (setsockopt(socket_serveur, SOL_SOCKET , SO_REUSEADDR , &optval , sizeof(int)) == -1){
+   if (setsockopt(socket_serveur, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(int)) == -1)
+   {
       perror("Can not set SO_REUSEADDR option");
    }
 
@@ -47,21 +48,26 @@ int creer_serveur(int port)
    return socket_serveur;
 }
 
-void traitement_signal(int sig){
+void traitement_signal(int sig)
+{
    printf("Signal %d reçu\n", sig);
    int status;
    waitpid(-1, &status, WUNTRACED);
 }
 
-void initialiser_signaux(void){
+void initialiser_signaux(void)
+{
    struct sigaction sa;
+
    sa.sa_handler = traitement_signal;
    sigemptyset(&sa.sa_mask);
    sa.sa_flags = SA_RESTART;
-   if (sigaction(SIGCHLD , &sa, NULL) == -1){
+   if (sigaction(SIGCHLD, &sa, NULL) == -1)
+   {
       perror("sigaction(SIGCHLD)");
    }
-   if(signal(SIGPIPE, SIG_IGN)==SIG_ERR){
+   if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
+   {
       perror("siignal");
    }
 }
