@@ -10,19 +10,19 @@
 
 int main()
 {
-   int        serv;
-   int        socket_client;
-   char       message [1024] = "";
+   int  serv;
+   int  socket_client;
+   char message [1024] = "";
 
    //char *split1;
    //char *split2;
-   char *split3;
-   char *methode;
-   char *ressource;
-   FILE * f;
-   char tok [1024];
-   const char *e400 = "HTTP/1.1 400 Bad Request\r\nConnection: Close\r\nContent-Length: 17 \r\n\n400 Bad request\r";
-   const char *e200 = "HTTP/1.1 200 OK\r\nContent-Length: ";
+   char       *split3;
+   char       *methode;
+   char       *ressource;
+   FILE       * f;
+   char       tok [1024];
+   const char *e400              = "HTTP/1.1 400 Bad Request\r\nConnection: Close\r\nContent-Length: 17 \r\n\n400 Bad request\r";
+   const char *e200              = "HTTP/1.1 200 OK\r\nContent-Length: ";
    const char *message_bienvenue = "we shall put a long message here... Who you gonna call? TextBuster !\n\n__________________________________________▓▓▓\n_________________________________________▓▒▒▒▓▓\n____________________▄▄▄▄▄▄▄▄▄__________▓▒▒▒▒▒▓\n___▓▓▓▓▓____▄█████▓▓▓▓▓▓░░███████▓▒▒▒▒▓▒▓\n____▓▒▓▒▓▓▓██▓█▓▓▓▓▓▓▓░░░▓▓▓▓▓▓▓▓▒▒▒▒▒▓▒▓\n______▓▒▒▒▓▒▒▓▓▓▓▓▓▓▓░░░▓▓▓▓▓▓▓▓█▒▒▒▒▒▒▓▒▓\n______█▓▓▒▒▓▒▒▓▒▒▓▓▓░░░▓▓▓▓▓▓▓▓█▒▒▒▒▒▒▒▓▒▓\n____▄█▓▓█▓▓▓▒▒▒▓▒▓▓░░░░▓▓▓▓▓▓▓▓█▒▒▒▒▒▒▓▒▒▓\n___█▓▓▓█▓▓█▓▓▒▓▒▓▓▓░░░░▓▓▓▓▓▓▓▓▓█▒▒▒▒▓▒▒▒▓\n__█▓▓▓█▓▓█▓▓▓▓▓▓▓▓▓░░░█████████████▒▒▒▒▒▒▓\n__█▓▓▓█▓▓█▓▓▓▓▓▓██████▒▌__▓█_____▓▓▒▒▒▒▒▒▒▓\n_▐█▓▓█▓▓▓█▓▓████▒▒▒▒▒▒▌__▓▓█▄____▓▓▒▒▒▒▒▒▓\n_▐█▓█▓▓▓▓███▒▒▒▒▒▒▒▒▒▒▌__▓▓█████▓▓▒▒▒▒▒▒▓\n__█▓█▓▓██_▅▄██▄▒▒▒▒▒▒▒▐___▓▓█▄_██▓▓▄▅▅▒▒▒▓\n__█▓▓██__▅▄▄▄▌__▀▄▒▒▒▒▒▐___▓▓▓████▓▅▅▄▒▒▒█\n__█▓█_________▓▄___▀▒▒▒▒▒▐____▓▓▓▓▓▓▅▅▄▒▒▒██\n__██___________▓▓█▀█▄▒▒▒▒▒▌________▒▒▒▒▒▒█▓█▌\n_________________▓▓███▒▒▒▒▒▐____▒▒▒██▒▒██▓██▌\n___________________▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒█▓▓██▓▓██▓▌\n____________________▓▒▒▄▒▒▌▒▒▒▒▒▒▒█▓▓▓▓██▓▓▓█\n___________________▓▒▒▒▒▒▐▒▒▒▒▒▒▒█▓███▓▓▓█▓▓█▌\n_____________________▓▓▓▄▀▒▒▒▒▓▓▓█▓▓▓▓▓▓█▓▓▓▓██\n_________________________▓▓▓▓▓▓____█▓▓██▀▀█▓▓▓▓░░█\n______________________________________▀▀__▄█▓▓▓▓▓░░▓█\n_______________________________________▄██▓▓▓▓▓▓░░▓▓█\n_____________________________________██▓▓▓▓▓▓▓▓░░▓▓█\n______________________________________█▓▓▓▓▓▓▓░░░▓▓█\n_______________________________________█▓▓▓▓▓░░░▓▓▓█\n________________________________________█▓▓▓░░░▓▓▓▓█\n__________________________________________██░░░▓▓▓▓█\n_____________________________________________█░▓▓▓█\n_______________________________________________████\n";
 
    serv = creer_serveur(4242);
@@ -49,17 +49,21 @@ int main()
          f = fdopen(socket_client, "w+");
          fgets(message, sizeof(message), f);
          //printf("<Webserver> %s", message);
-         while(fgets(tok,sizeof(tok),f)!=NULL && tok[0] != '\r' && tok[0]!= '\n' );
+         while (fgets(tok, sizeof(tok), f) != NULL && tok[0] != '\r' && tok[0] != '\n')
+            ;
          methode = strtok(message, " ");
          strtok(NULL, " ");
          ressource = strtok(NULL, " ");
-         split3 = strtok(NULL, " ");
-         if ((strcmp(methode,"GET")==0) && (ressource != NULL) && (split3 == NULL) && ((strstr(ressource,"HTTP/1.0")==0) || (strstr(ressource,"HTTP/1.1")==0))){
-               fprintf(f,"%s : %d \r\n\n %s\n",e200,(int)strlen(message_bienvenue),message_bienvenue);
-               fflush(f);
-               fclose(f);
-         } else{
-            fprintf(f,"%s",e400);
+         split3    = strtok(NULL, " ");
+         if ((strcmp(methode, "GET") == 0) && (ressource != NULL) && (split3 == NULL) && ((strstr(ressource, "HTTP/1.0") == 0) || (strstr(ressource, "HTTP/1.1") == 0)))
+         {
+            fprintf(f, "%s : %d \r\n\n %s\n", e200, (int)strlen(message_bienvenue), message_bienvenue);
+            fflush(f);
+            fclose(f);
+         }
+         else
+         {
+            fprintf(f, "%s", e400);
             fflush(f);
             fclose(f);
          }
