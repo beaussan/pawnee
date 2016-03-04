@@ -155,3 +155,22 @@ void send_response(FILE *client, int code, const char *reason_phrase, const char
    fprintf(client, "\r\n");
 }
 
+char *rewrite_url(char *url, char *racine) {
+
+   /* Réécriture */
+   int i = 0;
+   char * str;
+   while (url[i] != '?' && i < strlen(url)) {
+      str+=url[i];
+      i++;
+   }
+
+   /* Test de la chaîne */
+   struct stat racineStat;
+   if (stat(racine, &racineStat) < 0)
+      perror("Erreur racine");
+
+   if (!S_ISDIR(racineStat.st_mode))
+      perror("Not a directory");
+}
+
